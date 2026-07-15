@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hello, You!</title>
+<style>
+  :root {
+    --bg1: #0f0c29;
+    --bg2: #302b63;
+    --bg3: #24243e;
+    --accent: #ff6b6b;
+    --accent2: #4ecdc4;
+    --text: #f5f5f5;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(-45deg, var(--bg1), var(--bg2), var(--bg3), var(--bg2));
+    background-size: 400% 400%;
+    animation: gradientShift 15s ease infinite;
+    color: var(--text);
+    padding: 20px;
+  }
+
+  @keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  .card {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    padding: 48px 40px;
+    max-width: 480px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  }
+
+  h1 {
+    margin: 0 0 8px;
+    font-size: 2.2rem;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  p.subtitle {
+    margin: 0 0 32px;
+    opacity: 0.75;
+    font-size: 0.95rem;
+  }
+
+  .input-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  input[type="text"] {
+    flex: 1;
+    padding: 14px 16px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text);
+    font-size: 1rem;
+    outline: none;
+    transition: 0.2s;
+  }
+
+  input[type="text"]::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  input[type="text"]:focus {
+    border-color: var(--accent2);
+    background: rgba(255, 255, 255, 0.15);
+  }
+
+  button {
+    padding: 14px 24px;
+    border: none;
+    border-radius: 12px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    color: #10101a;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(78, 205, 196, 0.4);
+  }
+
+  button:active {
+    transform: translateY(0);
+  }
+
+  #greeting {
+    min-height: 60px;
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-top: 8px;
+    word-break: break-word;
+    animation: fadeIn 0.4s ease;
+  }
+
+  #greeting .wave {
+    display: inline-block;
+    animation: wave 1.6s infinite;
+    transform-origin: 70% 70%;
+  }
+
+  @keyframes wave {
+    0%, 100% { transform: rotate(0deg); }
+    15% { transform: rotate(14deg); }
+    30% { transform: rotate(-8deg); }
+    45% { transform: rotate(14deg); }
+    60% { transform: rotate(-4deg); }
+    75% { transform: rotate(10deg); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  footer {
+    margin-top: 28px;
+    font-size: 0.75rem;
+    opacity: 0.5;
+  }
+</style>
+</head>
+<body>
+
+  <div class="card">
+    <h1>👋 Hello, Name!</h1>
+    <p class="subtitle">Type your name and press Enter (or click the button)</p>
+
+    <div class="input-row">
+      <input type="text" id="nameInput" placeholder="Enter your name..." autofocus />
+      <button id="greetBtn">Say Hi</button>
+    </div>
+
+    <div id="greeting"></div>
+
+    <footer>Hosted on Amazon S3 ☁️</footer>
+  </div>
+
+<script>
+  const input = document.getElementById('nameInput');
+  const btn = document.getElementById('greetBtn');
+  const greeting = document.getElementById('greeting');
+
+  function sayHello() {
+    const name = input.value.trim();
+    if (name.length === 0) {
+      greeting.innerHTML = "Please type a name first 🙂";
+      return;
+    }
+    // Basic escaping to avoid HTML injection
+    const safeName = name.replace(/[&<>"']/g, (c) => ({
+      '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+    }[c]));
+    greeting.innerHTML = `Hello, ${safeName}! <span class="wave">👋</span>`;
+  }
+
+  btn.addEventListener('click', sayHello);
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') sayHello();
+  });
+</script>
+
+</body>
+</html>
