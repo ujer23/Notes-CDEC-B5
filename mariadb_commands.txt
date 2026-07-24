@@ -1,0 +1,42 @@
+sudo apt install mariadb-client -y
+
+mariadb --version
+mariadb -h endpoint_url -P 3306 -u admin -p
+
+SHOW DATABASES;
+
+CREATE DATABASE studentdb;
+
+SHOW DATABASES;
+
+USE studentdb;
+
+SELECT DATABASE();
+
+SHOW TABLES;
+
+Create a table
+
+CREATE TABLE students (
+    id INT PRIMARY KEY,
+    name VARCHAR(50),
+    age INT,
+    city VARCHAR(50)
+);
+
+Show tables
+SHOW TABLES;
+
+Insert one record
+INSERT INTO students
+VALUES (1,'Ujer',21,'Pune');
+
+
+Insert multiple records
+INSERT INTO students
+VALUES
+(2,'Amit',22,'Mumbai'),
+(3,'Priya',20,'Delhi'),
+(4,'Rohan',23,'Nashik');
+
+SELECT * FROM students;
