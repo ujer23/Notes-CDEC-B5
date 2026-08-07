@@ -1,0 +1,5 @@
+#stress command for autosacling
+
+sudo apt update 
+sudo apt install stress 
+stress --cpu 2 --timeout 300
