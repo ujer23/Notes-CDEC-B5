@@ -1,5 +1,6 @@
 #!/bin/bash
-apt update -y
-apt install nginx -y
-echo "<h1>Hi $(hostname)</h1>" > /var/www/html/index.html
-systemctl restart nginx
+sudo apt update 
+sudo apt-get install nginx -y 
+sudo systemctl start nginx
+sudo systemctl enable nginx 
+echo "<h1>hello this is $(hostname)</h1>" > /var/www/html/index.html
